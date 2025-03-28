@@ -213,6 +213,32 @@
         </div>
 
         <div style="display: flex; align-items: center">
+          <a-popover placement="bottom" trigger="click" v-model:visible="notificationVisible">
+            <template #content>
+              <div style="width: 300px; max-height: 400px; overflow-y: auto;">
+                <div v-if="notifications.length === 0" style="text-align: center; padding: 20px;">
+                  暂无待办通知
+                </div>
+                <a-list v-else>
+                  <a-list-item v-for="item in notifications" :key="item.id">
+                    <div style="width: 100%">
+                      <div style="display: flex; justify-content: space-between; align-items: center">
+                        <span style="font-weight: bold">{{ item.title }}</span>
+                      </div>
+                      <div style="margin: 8px 0">{{ item.content }}</div>
+                      <div style="display: flex; justify-content: flex-end; gap: 8px">
+                        <a-button size="small" @click="markAsRead(item.id)">已阅</a-button>
+                        <a-button size="small" type="primary" @click="remindLater(item.id)">再次提醒</a-button>
+                      </div>
+                    </div>
+                  </a-list-item>
+                </a-list>
+              </div>
+            </template>
+            <a-badge :count="notifications.length" :dot="notifications.length > 0">
+              <BellOutlined style="font-size: 20px; margin-right: 16px; cursor: pointer" />
+            </a-badge>
+          </a-popover>
           <span v-if="user.role_id === 1"
             ><a-tag color="blue">管理员</a-tag></span
           >
@@ -277,7 +303,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import {
   UserOutlined,
   RobotOutlined,
@@ -303,6 +329,7 @@ import {
   InsertRowRightOutlined,
   SwitcherOutlined,
   SyncOutlined,
+  BellOutlined,
 } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
 import router from "@/router";
@@ -314,6 +341,59 @@ const selectedKeys = ref<string[]>(["1"]);
 const collapsed = ref<boolean>(false);
 
 const isModalVisible = ref(false);
+const notificationVisible = ref(false);
+const notifications = ref<any[]>([]);
+
+const fetchNotifications = async () => {
+  try {
+    const response = await fetch('http://localhost:8100/api/note/list', {
+      credentials: 'include',
+      headers: {
+        'Cookie': document.cookie
+      }
+    });
+    const data = await response.json();
+    if (data.code === 0) {
+      notifications.value = data.data.records;
+    } else {
+      message.error(data.msg || '获取待办通知失败');
+    }
+  } catch (error) {
+    console.error('获取待办通知失败:', error);
+    message.error('获取待办通知失败');
+  }
+};
+
+const markAsRead = async (id: number) => {
+  try {
+    const response = await fetch('http://localhost:8100/api/note/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id })
+    });
+    const data = await response.json();
+    if (data.code === 0) {
+      message.success('已标记为已读');
+      fetchNotifications();
+    } else {
+      message.error(data.msg || '操作失败');
+    }
+  } catch (error) {
+    console.error('操作失败:', error);
+    message.error('操作失败');
+  }
+};
+
+const remindLater = async (id: number) => {
+  notificationVisible.value = false;
+  message.success('将在稍后提醒');
+};
+
+onMounted(() => {
+  fetchNotifications();
+});
 
 const handleEdit = (record: UserResponse) => {
   Object.assign(editForm, user);
