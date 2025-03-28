@@ -7,10 +7,10 @@ import (
 )
 
 func InitAnnounceRouter(router *gin.RouterGroup) {
-	userRouter := router.Group("announce")
+	announceRouter := router.Group("announce")
 	{
-		userRouter.POST("register", api.UserRegister)
-		userRouter.POST("delete", api.UserDelete)
-		userRouter.GET("get", api.UserGet)
+		announceRouter.POST("add", api.AnnounceAdd)
+		announceRouter.POST("delete", api.AnnounceDelete)
+		announceRouter.GET("list", api.AnnounceList)
 	}
 }

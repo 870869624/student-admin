@@ -4,6 +4,7 @@ import (
 	"backend/global"
 	"backend/model"
 	"errors"
+
 	"github.com/jinzhu/copier"
 )
 
@@ -17,6 +18,7 @@ func (s *ProjectStageService) Add(req *model.ProjectStageAddRequest) (*model.Pro
 	if err := global.Db.Create(projectStage).Error; err != nil {
 		return nil, errors.New("系统错误")
 	}
+
 	return projectStage, nil
 }
 
@@ -43,5 +45,6 @@ func (s *ProjectStageService) Update(req *model.ProjectStageUpdateRequest) error
 	if err := global.Db.Model(projectStage).Updates(projectStage).Error; err != nil {
 		return err
 	}
+
 	return nil
 }

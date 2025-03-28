@@ -6,8 +6,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/jinzhu/copier"
 	"time"
+
+	"github.com/jinzhu/copier"
 )
 
 type ProjectService struct{}
@@ -50,6 +51,17 @@ func (s *ProjectService) Add(req *model.ProjectAddRequest) error {
 	if err = projectDocumentService.Add(projectDocumentAddRequest); err != nil {
 		return errors.New("系统错误")
 	}
+
+	note := &model.Note{
+		UserId:  int(project.UserId),
+		Title:   project.Name,
+		Status:  0,
+		Content: project.Status,
+	}
+	if err := global.Db.Model(&model.Note{}).Create(note).Error; err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -68,6 +80,16 @@ func (s *ProjectService) Update(req *model.ProjectUpdateRequest) error {
 		FilePath:  req.FilePath,
 	}
 	if err := projectDocumentService.Update(projectDocumentUpdateRequest); err != nil {
+		return err
+	}
+
+	note := &model.Note{
+		UserId:  int(project.UserId),
+		Title:   project.Name,
+		Status:  0,
+		Content: project.Status,
+	}
+	if err := global.Db.Model(&model.Note{}).Create(note).Error; err != nil {
 		return err
 	}
 	return nil
@@ -194,6 +216,21 @@ func (s *ProjectService) List(req *model.ProjectListRequest) (int64, int, int, [
 func (s *ProjectService) UpdateStatus(req *model.ProjectUpdateStatusRequest) error {
 	if err := global.Db.Model(&model.Project{}).Where("id = ?", req.ProjectId).Update("status", req.Status).Error; err != nil {
 		return errors.New("系统错误")
+	}
+
+	project := &model.Project{
+		Id: req.ProjectId,
+	}
+	global.Db.Where("id =?", req.ProjectId).First(project)
+
+	note := &model.Note{
+		UserId:  int(project.UserId),
+		Title:   project.Name,
+		Status:  0,
+		Content: project.Status,
+	}
+	if err := global.Db.Model(&model.Note{}).Create(note).Error; err != nil {
+		return err
 	}
 
 	// 下一个阶段

@@ -9,24 +9,11 @@
     <!-- 公告板块 -->
     <div class="announcements">
       <a-card title="系统公告">
-        <a-collapse  v-model:activeKey="activeKey">
-          <a-collapse-panel key="1" header="公告1">
-            <p>请确保在截止日期前提交项目报告。</p>
-          </a-collapse-panel>
-          <a-collapse-panel key="2" header="公告2">
-            <p>
-              <p>尊敬的科研人员，</p>
-              <p>为了进一步提升科研项目的管理效率，现发布以下通知：</p>
-              <ul style="margin-left: 30px;">
-                <li>请确保项目申请书于截止日期前提交。</li>
-                <li>每个项目需按季度提交进展报告。</li>
-                <li>请各位科研人员密切配合，确保系统内信息的准确性。</li>
-              </ul>
-              <p style="text-align: right;">科研项目管理系统团队<br>2025年2月6日</p>
-            </p>
+        <a-collapse v-model:activeKey="activeKey">
+          <a-collapse-panel v-for="item in announcements" :key="item.id" :header="item.title">
+            <p>{{ item.content }}</p>
           </a-collapse-panel>
         </a-collapse>
-        <p>请确保在截止日期前提交项目报告。</p>
       </a-card>
     </div>
 
@@ -58,10 +45,32 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
-const activeKey = ref(['2']);
-  watch(activeKey, val => {
-    console.log(val);
+import { ref, onMounted } from 'vue';
+import { message } from 'ant-design-vue';
+
+const activeKey = ref([]);
+const announcements = ref([]);
+
+const fetchAnnouncements = async () => {
+  try {
+    const response = await fetch('http://localhost:8100/api/announce/list');
+    const data = await response.json();
+    if (data.code === 0) {
+      announcements.value = data.data.records;
+      if (announcements.value.length > 0) {
+        activeKey.value = [announcements.value[0].id];
+      }
+    } else {
+      message.error(data.msg || '获取公告列表失败');
+    }
+  } catch (error) {
+    console.error('获取公告列表失败:', error);
+    message.error('获取公告列表失败');
+  }
+};
+
+onMounted(() => {
+  fetchAnnouncements();
 });
 </script>
 

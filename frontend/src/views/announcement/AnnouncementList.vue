@@ -99,9 +99,15 @@ export default defineComponent({
     const fetchAnnouncements = async () => {
       loading.value = true;
       try {
-        // TODO: 调用后端API获取公告列表
-        announcements.value = [];
+        const response = await fetch('http://localhost:8100/api/announce/list');
+        const data = await response.json();
+        if (data.code === 0) {
+          announcements.value = data.data.records;
+        } else {
+          message.error(data.msg || '获取公告列表失败');
+        }
       } catch (error) {
+        console.error('获取公告列表失败:', error);
         message.error('获取公告列表失败');
       } finally {
         loading.value = false;
@@ -124,21 +130,55 @@ export default defineComponent({
     const handleAddAnnouncement = async () => {
       try {
         await formRef.value.validate();
-        // TODO: 调用后端API添加公告
-        message.success('添加公告成功');
-        modalVisible.value = false;
-        fetchAnnouncements();
+        const response = await fetch('http://localhost:8100/api/announce/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: formState.value.title,
+            content: formState.value.content
+          })
+        });
+        const data = await response.json();
+        if (data.code === 0) {
+          message.success('添加公告成功');
+          modalVisible.value = false;
+          formState.value = {
+            title: '',
+            content: '',
+            important: false
+          };
+          fetchAnnouncements();
+        } else {
+          message.error(data.msg || '添加公告失败');
+        }
       } catch (error) {
-        console.error('表单验证失败:', error);
+        console.error('添加公告失败:', error);
+        message.error('添加公告失败');
       }
     };
 
     const deleteAnnouncement = async (id: string) => {
       try {
-        // TODO: 调用后端API删除公告
-        message.success('删除公告成功');
-        fetchAnnouncements();
+        const response = await fetch(`http://localhost:8100/api/announce/delete`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: id
+          })
+        });
+        const data = await response.json();
+        if (data.code === 0) {
+          message.success('删除公告成功');
+          fetchAnnouncements();
+        } else {
+          message.error(data.msg || '删除公告失败');
+        }
       } catch (error) {
+        console.error('删除公告失败:', error);
         message.error('删除公告失败');
       }
     };

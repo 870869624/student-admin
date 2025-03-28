@@ -11,4 +11,6 @@ var (
 	projectDelayService    = &service.ProjectDelayService{}
 	projectDownService     = &service.ProjectDownService{}
 	projectDocumentService = &service.ProjectDocumentService{}
+	announceService        = &service.AnnounceService{}
+	noteService            = &service.NoteService{}
 )

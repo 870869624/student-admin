@@ -1,2 +1,13 @@
 [backend]2025/03/28 - 12:33:43.029	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
 [backend]2025/03/28 - 12:41:43.425	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 14:54:05.765	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:24:05.590	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:26:22.192	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:30:53.263	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:31:17.551	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:32:43.241	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:36:22.443	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:38:48.081	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:39:33.899	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:40:29.703	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 16:43:19.164	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}

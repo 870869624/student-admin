@@ -3,6 +3,7 @@ package router
 import (
 	"backend/global"
 	"backend/middleware"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,6 +32,8 @@ func Router() *gin.Engine {
 		InitProjectDelayRouter(group)
 		InitProjectDocumentRouter(group)
 		InitProjectDownRouter(group)
+		InitAnnounceRouter(group)
+		InitNoteRouter(group)
 	}
 
 	return router
