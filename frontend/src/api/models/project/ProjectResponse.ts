@@ -1,0 +1,22 @@
+export type ProjectResponse = {
+  id: number;
+  name: string;
+  description: string;
+  start_date: number;
+  expected_end_date: number;
+  status: string;
+  user_id: number;
+  department: string;
+  teacher_id: number;
+  batch: string;
+  source: string;
+  participant: number[];
+  result_type: string;
+  file_path: string;
+  stageId: number;
+  stage_status: string;
+  requested_extension_date: number;
+  delay_status: string;
+  approval_date: number;
+  down_reason: string;
+};

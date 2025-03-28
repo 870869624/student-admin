@@ -1,0 +1,3 @@
+[backend]2025/03/10 - 23:12:49.688	[34minfo[0m	D:/Amy-desktop/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/10 - 23:33:38.082	[34minfo[0m	D:/Amy-desktop/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/10 - 23:58:08.951	[34minfo[0m	D:/Amy-desktop/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}

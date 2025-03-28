@@ -1,0 +1,2 @@
+[backend]2025/03/28 - 12:33:43.029	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 12:41:43.425	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
