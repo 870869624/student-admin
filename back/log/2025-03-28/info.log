@@ -11,3 +11,5 @@
 [backend]2025/03/28 - 16:39:33.899	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
 [backend]2025/03/28 - 16:40:29.703	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
 [backend]2025/03/28 - 16:43:19.164	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 17:04:42.873	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/03/28 - 17:07:55.630	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}

@@ -23,11 +23,6 @@ func AnnounceAdd(c *gin.Context) {
 }
 
 func AnnounceList(c *gin.Context) {
-	r := &model.AnnounceListRequest{}
-	if err := c.ShouldBindJSON(r); err != nil {
-		xres.ErrorMessage(c, xcode.Error, "参数错误")
-		return
-	}
 
 	total, size, pages, records, err := announceService.List()
 	if err != nil {
