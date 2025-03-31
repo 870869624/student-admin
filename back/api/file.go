@@ -50,3 +50,38 @@ func Download(c *gin.Context) {
 
 	c.File(filePath)
 }
+
+func View(c *gin.Context) {
+	fileName := c.Param("filename")
+	if fileName == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Filename is required"})
+		return
+	}
+
+	filePath := filepath.Join(".", global.Config.Server.FilePath, fileName)
+
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		c.JSON(http.StatusNotFound, gin.H{"error": "File not found"})
+		return
+	}
+
+	ext := filepath.Ext(fileName)
+	contentType := "application/octet-stream"
+	switch ext {
+	case ".pdf":
+		contentType = "application/pdf"
+	case ".jpg", ".jpeg":
+		contentType = "image/jpeg"
+	case ".png":
+		contentType = "image/png"
+	case ".gif":
+		contentType = "image/gif"
+	case ".txt":
+		contentType = "text/plain"
+	case ".doc", ".docx":
+		contentType = "application/msword"
+	}
+
+	c.Header("Content-Type", contentType)
+	c.File(filePath)
+}

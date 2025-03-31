@@ -94,6 +94,9 @@
           >
             下载文件
           </a-button>
+          <a-button v-if="record.file_path" type="link" @click="handleViewFile(record)">
+            查看文件
+          </a-button>
           <a-tooltip
             v-if="record.status === 'down'"
             :title="record.down_reason"
@@ -203,6 +206,7 @@ const handleProjects = async () => {
   if (res.code === 0) {
     projects.value = res.data.records;
     total.value = res.data.total;
+    console.log(res.data.records);
   } else {
     message.error(res.msg);
   }
@@ -221,6 +225,20 @@ const handlePageChange = (page: number) => {
 const handleDownload = (record: ProjectResponse) => {
   window.location.href = record.file_path;
   message.success("下载成功");
+};
+
+const handleViewFile = (record: ProjectResponse) => {
+  if (!record.file_path) {
+    message.error("该项目暂无文件");
+    return;
+  }
+  // 从文件路径中提取文件ID
+  const fileId = record.file_path.split('/').pop();
+  if (!fileId) {
+    message.error("无效的文件路径");
+    return;
+  }
+  window.open(`http://127.0.0.1:8100/api/files/view/${fileId}`);
 };
 
 const handleUpdateStatus = async (record: ProjectResponse) => {
