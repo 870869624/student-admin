@@ -1,17 +1,10 @@
 <template>
-  <a-card title="角色列表" style="max-width: 1200px; margin: 50px auto">
+  <a-card title="角色列表" style="max-width: 1200px; margin: 5px auto">
     <div style="text-align: right; margin-bottom: 20px">
       <a-button type="primary" @click="showAddRoleModal">添加角色</a-button>
     </div>
 
-    <a-table
-      :data-source="roles"
-      :pagination="false"
-      row-key="id"
-      bordered
-      size="middle"
-      :loading="loading"
-    >
+    <a-table :data-source="roles" :pagination="false" row-key="id" bordered size="middle" :loading="loading">
       <a-table-column title="id" data-index="id" key="id" />
       <a-table-column title="角色名称" data-index="name" key="name" />
       <a-table-column title="权限" key="permissions">
@@ -23,14 +16,9 @@
       </a-table-column>
       <a-table-column title="操作" key="action">
         <template #default="{ record }">
-          <a-button type="link" @click="handleEdit(record)" v-if="record.id > 3"
-            >编辑权限
+          <a-button type="link" @click="handleEdit(record)" v-if="record.id > 3">编辑权限
           </a-button>
-          <a-button
-            type="link"
-            @click="handleDelete(record)"
-            v-if="record.id > 3"
-          >
+          <a-button type="link" @click="handleDelete(record)" v-if="record.id > 3">
             删除
           </a-button>
         </template>
@@ -38,22 +26,12 @@
     </a-table>
 
     <div style="text-align: right; margin-top: 20px">
-      <a-pagination
-        v-model:current="pageRequest.current"
-        :total="total"
-        :page-size="pageRequest.page_size"
-        @change="handlePageChange"
-        size="small"
-        show-less-items
-      />
+      <a-pagination v-model:current="pageRequest.current" :total="total" :page-size="pageRequest.page_size"
+        @change="handlePageChange" size="small" show-less-items />
     </div>
   </a-card>
 
-  <a-modal
-    v-model:visible="isPermissionModalVisible"
-    title="编辑权限"
-    @ok="handleAddRolePermission"
-  >
+  <a-modal v-model:visible="isPermissionModalVisible" title="编辑权限" @ok="handleAddRolePermission">
     <a-radio-group v-model:value="selectedPermission">
       <a-radio v-for="(perm, index) in permissions" :value="perm.id">
         {{ perm.name }}
@@ -61,11 +39,7 @@
     </a-radio-group>
   </a-modal>
 
-  <a-modal
-    v-model:visible="isAddRoleModalVisible"
-    title="添加角色"
-    @ok="handleAddRole"
-  >
+  <a-modal v-model:visible="isAddRoleModalVisible" title="添加角色" @ok="handleAddRole">
     <a-input v-model:value="roleAdd.name" placeholder="请输入角色名称" />
   </a-modal>
 </template>
@@ -199,23 +173,23 @@ const handleEdit = (record: RoleResponse) => {
   border-color: #2f4bbf;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   background-color: #f0f2f5;
   color: #333;
   font-weight: 500;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   background-color: #fff;
   color: #555;
 }
 
-.ant-table-tbody > tr:hover {
+.ant-table-tbody>tr:hover {
   background-color: #fafafa;
 }
 
-.ant-table-tbody > tr > td,
-.ant-table-thead > tr > th {
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   border: 1px solid #e8e8e8;
   padding: 12px 16px;
   text-align: center;

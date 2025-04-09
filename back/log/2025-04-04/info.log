@@ -1,0 +1,10 @@
+[backend]2025/04/04 - 10:19:53.020	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 10:40:49.745	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 16:38:19.528	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 16:49:28.657	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 18:08:06.736	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 18:09:50.336	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 18:23:06.779	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 18:39:00.381	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 18:50:38.135	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/04 - 19:16:03.044	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}

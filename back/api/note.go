@@ -48,19 +48,19 @@ func NoteList(c *gin.Context) {
 	for i := range records {
 		switch records[i].Content {
 		case "declared":
-			records[i].Content = "已申报"
+			records[i].Content = "项目申报审核已通过"
 		case "initiated":
-			records[i].Content = "已立项"
+			records[i].Content = "项目立项审核已通过"
 		case "progress":
-			records[i].Content = "进行中"
+			records[i].Content = "项目中检审核已通过"
 		case "completed":
-			records[i].Content = "已完成"
+			records[i].Content = "项目结项审核已通过"
 		case "extended":
-			records[i].Content = "已延期"
+			records[i].Content = "项目已延期"
 		case "terminated":
-			records[i].Content = "已终止"
+			records[i].Content = "项目已被终止"
 		case "down":
-			records[i].Content = "驳回"
+			records[i].Content = "项目已被驳回"
 		default:
 			records[i].Content = "未知状态"
 		}

@@ -1,12 +1,6 @@
 <template>
-  <a-card title="角色列表" style="max-width: 1200px; margin: 50px auto">
-    <a-table
-      :data-source="permissions"
-      :pagination="false"
-      row-key="id"
-      bordered
-      size="middle"
-    >
+  <a-card title="角色列表" style="max-width: 1200px; margin: 5px auto">
+    <a-table :data-source="permissions" :pagination="false" row-key="id" bordered size="middle">
       <a-table-column title="id" data-index="id" key="id" />
       <a-table-column title="权限名称" data-index="name" key="name" />
       <a-table-column title="角色" key="roles">
@@ -19,14 +13,8 @@
     </a-table>
 
     <div style="text-align: right; margin-top: 20px">
-      <a-pagination
-        v-model:current="pageRequest.current"
-        :total="total"
-        :page-size="pageRequest.page_size"
-        @change="handlePageChange"
-        size="small"
-        show-less-items
-      />
+      <a-pagination v-model:current="pageRequest.current" :total="total" :page-size="pageRequest.page_size"
+        @change="handlePageChange" size="small" show-less-items />
     </div>
   </a-card>
 </template>
@@ -91,23 +79,23 @@ onMounted(() => {
   border-color: #2f4bbf;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   background-color: #f0f2f5;
   color: #333;
   font-weight: 500;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   background-color: #fff;
   color: #555;
 }
 
-.ant-table-tbody > tr:hover {
+.ant-table-tbody>tr:hover {
   background-color: #fafafa;
 }
 
-.ant-table-tbody > tr > td,
-.ant-table-thead > tr > th {
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   border: 1px solid #e8e8e8;
   padding: 12px 16px;
   text-align: center;

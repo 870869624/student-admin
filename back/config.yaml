@@ -13,8 +13,8 @@ mysql:
   port: 3306 # MySQL 服务器端口号
   config: charset=utf8mb4&parseTime=True&loc=Local # MySQL 连接配置参数
   db-name: data # 数据库名称
-  username: admin123 # 数据库用户名
-  password: qwertyu # 数据库密码
+  username: root # 数据库用户名
+  password: 123456 # 数据库密码
   engine: "" # 数据库引擎
   log-mode: error # MySQL 日志模式为错误日志
   max-idle-conns: 10 # 数据库最大空闲连接数

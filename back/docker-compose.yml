@@ -6,8 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456  # 设置 root 用户的密码
       MYSQL_DATABASE: data  # 创建初始数据库
-      MYSQL_USER: admin123  # 创建初始用户
-      MYSQL_PASSWORD: qwertyu  # 设置初始用户的密码
+      MYSQL_USER: root  # 创建初始用户
+      MYSQL_PASSWORD: 123456  # 设置初始用户的密码
     ports:
       - "3306:3306"  # 将主机的 3306 端口映射到容器的 3306 端口
     volumes:

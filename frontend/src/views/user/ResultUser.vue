@@ -1,53 +1,29 @@
 <template>
-  <a-card title="项目列表" style="max-width: 1200px; margin: 50px auto">
+  <a-card title="项目列表" style="max-width: 1200px; margin: 5px auto">
     <!-- 搜索框区域 -->
     <a-form layout="inline" style="margin-bottom: 20px">
       <a-form-item label="项目名称">
-        <a-input
-          v-model:value="pageRequest.name"
-          placeholder="请输入项目名称"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.name" placeholder="请输入项目名称" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="部门">
-        <a-input
-          v-model:value="pageRequest.department"
-          placeholder="请输入部门"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.department" placeholder="请输入部门" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="项目描述">
-        <a-input
-          v-model:value="pageRequest.description"
-          placeholder="请输入项目描述"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.description" placeholder="请输入项目描述" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="项目批次">
-        <a-input
-          v-model:value="pageRequest.batch"
-          placeholder="请输入项目批次"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.batch" placeholder="请输入项目批次" style="width: 200px" />
       </a-form-item>
 
       <a-form-item style="margin-top: 10px" label="项目来源">
-        <a-input
-          v-model:value="pageRequest.source"
-          placeholder="请输入项目来源"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.source" placeholder="请输入项目来源" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="项目状态" style="margin-top: 10px">
-        <a-select
-          v-model:value="pageRequest.status"
-          placeholder="请选择状态"
-          style="width: 200px"
-        >
+        <a-select v-model:value="pageRequest.status" placeholder="请选择状态" style="width: 200px">
           <a-select-option value="declared">已申报</a-select-option>
           <a-select-option value="initiated">已立项</a-select-option>
           <a-select-option value="progress">进行中</a-select-option>
@@ -58,35 +34,19 @@
       </a-form-item>
 
       <a-form-item style="margin-top: 10px">
-        <a-button
-          type="primary"
-          @click="handleProjects"
-          style="margin-left: 10px"
-        >
+        <a-button type="primary" @click="handleProjects" style="margin-left: 10px">
           搜索
         </a-button>
       </a-form-item>
     </a-form>
 
-    <a-table
-      :data-source="projects"
-      :pagination="false"
-      row-key="id"
-      bordered
-      size="middle"
-      :loading="loading"
-    >
+    <a-table :data-source="projects" :pagination="false" row-key="id" bordered size="middle" :loading="loading">
       <a-table-column title="项目名称" data-index="name" key="name" />
       <a-table-column title="描述" data-index="description" key="description" />
       <a-table-column title="开始日期" data-index="start_date" key="start_date">
         <template #default="{ text }">{{ formatDate(text) }}</template>
       </a-table-column>
-
-      <a-table-column
-        title="预计结束日期"
-        data-index="expected_end_date"
-        key="expected_end_date"
-      >
+      <a-table-column title="预计结束日期" data-index="expected_end_date" key="expected_end_date">
         <template #default="{ text }">{{ formatDate(text) }}</template>
       </a-table-column>
       <a-table-column title="状态" data-index="status" key="status">
@@ -106,27 +66,59 @@
       </a-table-column>
     </a-table>
     <div style="text-align: right; margin-top: 20px">
-      <a-pagination
-        v-model:current="pageRequest.current"
-        :total="total"
-        :page-size="pageRequest.page_size"
-        @change="handlePageChange"
-        size="small"
-        show-less-items
-      />
+      <a-pagination v-model:current="pageRequest.current" :total="total" :page-size="pageRequest.page_size"
+        @change="handlePageChange" size="small" show-less-items />
     </div>
   </a-card>
 
+  <div class="stats-cards">
+    <a-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-title">业绩总数</div>
+        <div class="stat-value">{{ Alltotal }}</div>
+        <a-statistic :value="11.28" :precision="2" suffix="%" :value-style="{ color: '#3f8600' }"
+          style="margin-right: 50px">
+          <template #prefix>
+            <arrow-up-outlined />
+          </template>
+        </a-statistic>
+      </div>
+      <div class="stat-icon">
+        <SaveOutlined />
+      </div>
+    </a-card>
+    <a-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-title">分类总数</div>
+        <div class="stat-value">{{ projectTypesCount }}</div>
+      </div>
+      <div class="stat-icon">
+        <ReconciliationOutlined />
+      </div>
+    </a-card>
+    <a-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-title">已完成项目数</div>
+        <div class="stat-value">{{ Completed }}</div>
+      </div>
+      <div class="stat-icon">
+        <UserOutlined />
+      </div>
+    </a-card>
+    <a-card class="stat-card">
+      <div class="stat-content">
+        <div class="stat-title">待完成项目数</div>
+        <div class="stat-value">{{ total - Completed }}</div>
+      </div>
+      <div class="stat-icon">
+        <ProjectOutlined />
+      </div>
+    </a-card>
+  </div>
   <a-card hoverable style="width: 90%; margin: auto">
     <div class="chart-container">
-    <VueUiQuickChart
-      :dataset="dataset1"
-      :config="config1"
-    />
-    <VueUiQuickChart
-      :dataset="dataset"
-      :config="config"
-    />
+      <VueUiQuickChart :dataset="dataset1" :config="config1" />
+      <VueUiQuickChart :dataset="dataset" :config="config" />
     </div>
   </a-card>
 
@@ -146,6 +138,8 @@ import { message } from "ant-design-vue";
 import { userStore } from "@/store/user";
 import { UploadRequestOption } from "ant-design-vue/es/vc-upload/interface";
 import { UserControllerService } from "@/api/services/UserControllerService";
+
+import { SaveOutlined, UserOutlined, ReconciliationOutlined, ProjectOutlined, ArrowUpOutlined } from '@ant-design/icons-vue';
 //数据可视化图表
 import { VueUiQuickChart } from "vue-data-ui";
 import "vue-data-ui/style.css";
@@ -163,7 +157,9 @@ const pageRequest = reactive<ProjectListRequest>({
   user_id: 0,
 });
 const total = ref(0);
-
+const projectTypesCount = ref(0);
+const Alltotal = ref(0);
+const Completed = ref(0);
 const projects = ref<ProjectResponse[]>([]);
 
 const user = userStore();
@@ -214,16 +210,16 @@ const getStatusColor = (status: string) => {
   }
 };
 
-const dataset1 = ref([89,66,88]);
+const dataset1 = ref([89, 66, 88]);
 const config1 = ref({
   responsive: false, backgroundColor: "#FFFFFF", barAnimated: true, barGap: 12, barStrokeWidth: 1, blurOnHover: true, chartIsBarUnderDatasetLength: 6, color: "#2D353C", dataLabelFontSize: 14,
   dataLabelRoundingPercentage: 1, dataLabelRoundingValue: 1, donutHideLabelUnderPercentage: 3, donutLabelMarkerStrokeWidth: 1, donutRadiusRatio: 0.4, donutShowTotal: true, donutStrokeWidth: 2, donutThicknessRatio: 0.18, donutTotalLabelFontSize: 24, donutTotalLabelOffsetY: 0,
   donutTotalLabelText: "总数", donutUseShadow: false, donutShadowColor: "#1A1A1A", fontFamily: "inherit", height: 338,
-  legendFontSize: 12, legendIcon: "circleFill", legendIconSize: 12, lineAnimated: true, lineSmooth: true, lineStrokeWidth: 2, paletteStartIndex: 0,
+  legendFontSize: 12, legendIcon: "circle", legendIconSize: 12, lineAnimated: true, lineSmooth: true, lineStrokeWidth: 2, paletteStartIndex: 0,
   showDataLabels: true, showLegend: true, showTooltip: true, showUserOptions: true,
   userOptionsButtons: { tooltip: true, pdf: true, img: true, fullscreen: true, annotator: true },
   userOptionsButtonTitles: { open: "打开选项", close: "关闭选项", tooltip: "切换提示", pdf: "下载PDF", img: "下载PNG", fullscreen: "切换全屏", annotator: "切换注释器" },
-  title: "一个快速图表", titleBold: true, titleFontSize: 16, titleTextAlign: "center",
+  title: "科研业绩月度分布图", titleBold: true, titleFontSize: 16, titleTextAlign: "center",
   tooltipCustomFormat: null, tooltipBorderRadius: 4, tooltipBorderColor: "#e1e5e8", tooltipBorderWidth: 1, tooltipFontSize: 14, tooltipBackgroundOpacity: 30, tooltipPosition: "center", tooltipOffsetY: 24,
   useCustomLegend: false, valuePrefix: "", valueSuffix: "", width: 512, xyAxisStroke: "#CCCCCC", xyAxisStrokeWidth: 1, xyGridStroke: "#e1e5e8", xyGridStrokeWidth: 0.5, xyHighlighterColor: "#000000", xyHighlighterOpacity: 0.05, xyLabelsXFontSize: 8, xyLabelsYFontSize: 12, xyPaddingBottom: 48, xyPaddingLeft: 48, xyPaddingRight: 12, xyPaddingTop: 24,
   xyPeriods: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"], // 修改月份为中文
@@ -236,9 +232,9 @@ const dataset = ref([{ name: '教育', value: 10 }]);
 const config = ref({
   responsive: false, backgroundColor: "#FFFFFF", barAnimated: true, barGap: 12, barStrokeWidth: 1, blurOnHover: true, chartIsBarUnderDatasetLength: 6, color: "#2D353C",
   dataLabelFontSize: 14, dataLabelRoundingPercentage: 1, dataLabelRoundingValue: 1,
-  donutHideLabelUnderPercentage: 3, donutLabelMarkerStrokeWidth: 1, donutRadiusRatio: 0.4, donutShowTotal: true, donutStrokeWidth: 2, donutThicknessRatio: 0.18, donutTotalLabelFontSize: 24, donutTotalLabelOffsetY: 0, donutTotalLabelText: "科研总数", donutUseShadow: false,donutShadowColor: "#1A1A1A",
+  donutHideLabelUnderPercentage: 3, donutLabelMarkerStrokeWidth: 1, donutRadiusRatio: 0.4, donutShowTotal: true, donutStrokeWidth: 2, donutThicknessRatio: 0.18, donutTotalLabelFontSize: 24, donutTotalLabelOffsetY: 0, donutTotalLabelText: "科研总数", donutUseShadow: false, donutShadowColor: "#1A1A1A",
   fontFamily: "inherit", height: 338,
-  legendFontSize: 12, legendIcon: "circleFill", legendIconSize: 12, lineAnimated: true, lineSmooth: true, lineStrokeWidth: 2, paletteStartIndex: 0,
+  legendFontSize: 12, legendIcon: "circle", legendIconSize: 12, lineAnimated: true, lineSmooth: true, lineStrokeWidth: 2, paletteStartIndex: 0,
   showDataLabels: true, showLegend: true, showTooltip: true, showUserOptions: true,
   userOptionsButtons: { tooltip: true, pdf: true, img: true, fullscreen: true, annotator: true },
   userOptionsButtonTitles: { open: "打开选项", close: "关闭选项", tooltip: "切换提示", pdf: "下载PDF", img: "下载PNG", fullscreen: "切换全屏", annotator: "切换注释器" },
@@ -255,7 +251,6 @@ const getMonthName = (month: number) => {
   const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
   return monthNames[month - 1];
 };
-
 // 加载状态
 const loading = ref(false);
 // 处理分页
@@ -289,6 +284,9 @@ const handles = async () => {
 
     // 更新projects数组
     projects.value = allProjects;
+    Alltotal.value = projects.value.length;
+    const isProjects = projects.value.filter(project => project.status == "completed");
+    Completed.value = isProjects.length;
 
     // 统计每个状态的数量
     const statusCount: { [key: string]: number } = {};
@@ -329,11 +327,26 @@ const handles = async () => {
 };
 
 const handleProjects = async () => {
-  pageRequest.user_id = user.id;
+  // 根据用户角色判断查询条件
+  if (user.role_id === 1) {
+    // 管理员查询所有项目
+    pageRequest.user_id = 0;
+  } else {
+    // 普通用户只能查询自己的项目
+    pageRequest.user_id = user.id;
+  }
   const res = await ProjectControllerService.List(pageRequest);
   if (res.code === 0) {
     projects.value = res.data.records;
     total.value = res.data.total;
+
+    // 统计项目类型数
+    const resultTypes = new Set();
+    res.data.records.forEach(project => {
+      resultTypes.add(project.result_type);
+    });
+    projectTypesCount.value = resultTypes.size;
+
   } else {
     message.error(res.msg);
   }
@@ -371,23 +384,23 @@ const handleDownload = (record: ProjectResponse) => {
   border-color: #2f4bbf;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   background-color: #f0f2f5;
   color: #333;
   font-weight: 500;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   background-color: #fff;
   color: #555;
 }
 
-.ant-table-tbody > tr:hover {
+.ant-table-tbody>tr:hover {
   background-color: #fafafa;
 }
 
-.ant-table-tbody > tr > td,
-.ant-table-thead > tr > th {
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   border: 1px solid #e8e8e8;
   padding: 12px 16px;
   text-align: center;
@@ -401,9 +414,12 @@ const handleDownload = (record: ProjectResponse) => {
 
 .chart-container {
   display: flex;
-  flex-wrap: nowrap; /* 不换行 */
-  justify-content: space-between; /* 在两个图表之间留出空间 */
-  position: relative; /* 设置相对定位，以便伪元素可以相对于它定位 */
+  flex-wrap: nowrap;
+  /* 不换行 */
+  justify-content: space-between;
+  /* 在两个图表之间留出空间 */
+  position: relative;
+  /* 设置相对定位，以便伪元素可以相对于它定位 */
 }
 
 .chart-container::before {
@@ -411,14 +427,97 @@ const handleDownload = (record: ProjectResponse) => {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%; /* 分隔线位于中间 */
-  width: 1px; /* 分隔线宽度 */
-  background-color: #ccc; /* 分隔线颜色 */
-  transform: translateX(-50%); /* 确保分隔线正好位于中间 */
+  left: 50%;
+  /* 分隔线位于中间 */
+  width: 1px;
+  /* 分隔线宽度 */
+  background-color: #ccc;
+  /* 分隔线颜色 */
+  transform: translateX(-50%);
+  /* 确保分隔线正好位于中间 */
 }
 
-.chart-container > * {
-  flex: 1; /* 让每个图表占据相等的空间 */
-  margin: 0 10px; /* 添加一些间距 */
+.chart-container>* {
+  flex: 1;
+  /* 让每个图表占据相等的空间 */
+  margin: 0 10px;
+  /* 添加一些间距 */
+}
+
+.stats-cards {
+  width: 90%;
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  width: 24%;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  /* Smooth transition for hover effect */
+  position: relative;
+}
+
+.stat-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 32px;
+  color: #fff;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  /* Slight hover effect */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  /* Enhanced shadow on hover */
+}
+
+.stat-card:nth-child(1) {
+  background: linear-gradient(to right, #001529, lightskyblue);
+}
+
+.stat-card:nth-child(2) {
+  background: linear-gradient(to right, lightskyblue, #ff7a8e);
+}
+
+.stat-card:nth-child(3) {
+  background: linear-gradient(to right, #ff7a8e, #ffb3c1);
+}
+
+.stat-card:nth-child(4) {
+  background: linear-gradient(to right, #ffb3c1, #e3c7f7);
+}
+
+.stat-title {
+  font-size: 16px;
+  color: #fff;
+}
+
+.stat-value {
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.charts-section {
+  margin-top: 24px;
+}
+
+.a-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    width: 45%;
+  }
 }
 </style>

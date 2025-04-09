@@ -22,6 +22,7 @@ import HomeView from "@/views/HomeView.vue";
 import ProjectDown from "@/views/project/ProjectDown.vue";
 import TestWeb3 from "@/views/user/test-web3.vue";
 import AnnouncementList from "@/views/announcement/AnnouncementList.vue";
+import EditPassword from "@/views/user/EditPassword.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -183,7 +184,7 @@ const routes: Array<RouteRecordRaw> = [
         component: ResultPaper,
         meta: {
           requiresAuth: true,
-          permissions: [1, 3],
+          permissions: [1,2,3],
         },
       },
       {
@@ -201,7 +202,7 @@ const routes: Array<RouteRecordRaw> = [
         component: ResultSoftware,
         meta: {
           requiresAuth: true,
-          permissions: [1, 3],
+          permissions: [1,2,3],
         },
       },
       {
@@ -219,7 +220,7 @@ const routes: Array<RouteRecordRaw> = [
         component: ResultProject,
         meta: {
           requiresAuth: true,
-          permissions: [1, 3],
+          permissions: [1,2,3],
         },
       },
       {
@@ -237,7 +238,7 @@ const routes: Array<RouteRecordRaw> = [
         component: ResultPatent,
         meta: {
           requiresAuth: true,
-          permissions: [1, 3],
+          permissions: [1,2,3],
         },
       },
       {
@@ -266,6 +267,11 @@ const routes: Array<RouteRecordRaw> = [
           requiresAuth: true,
           permissions: [1]
         },
+      },
+      {
+        name:"修改密码",
+        path:"/password/update",
+        component:EditPassword,
       },
       {
         name: "添加用户",

@@ -1,77 +1,42 @@
 <template>
-  <a-card title="项目列表" style="max-width: 1200px; margin: 50px auto">
+  <a-card title="项目列表" style="max-width: 1200px; margin: 5px auto">
     <!-- 搜索框区域 -->
     <a-form layout="inline" style="margin-bottom: 20px">
       <a-form-item label="项目名称">
-        <a-input
-          v-model:value="pageRequest.name"
-          placeholder="请输入项目名称"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.name" placeholder="请输入项目名称" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="部门">
-        <a-input
-          v-model:value="pageRequest.department"
-          placeholder="请输入部门"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.department" placeholder="请输入部门" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="项目描述">
-        <a-input
-          v-model:value="pageRequest.description"
-          placeholder="请输入项目描述"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.description" placeholder="请输入项目描述" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="项目批次">
-        <a-input
-          v-model:value="pageRequest.batch"
-          placeholder="请输入项目批次"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.batch" placeholder="请输入项目批次" style="width: 200px" />
       </a-form-item>
 
       <a-form-item style="margin-top: 10px" label="项目来源">
-        <a-input
-          v-model:value="pageRequest.source"
-          placeholder="请输入项目来源"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.source" placeholder="请输入项目来源" style="width: 200px" />
       </a-form-item>
 
       <a-form-item style="margin-top: 10px">
-        <a-button
-          type="primary"
-          @click="handleProjects"
-          style="margin-left: 10px"
-        >
+        <a-button type="primary" @click="handleProjects" style="margin-left: 10px">
           搜索
         </a-button>
       </a-form-item>
     </a-form>
 
-    <a-table
-      :data-source="projects"
-      :pagination="false"
-      row-key="id"
-      bordered
-      size="middle"
-      :loading="loading"
-    >
+    <a-table :data-source="projects" :pagination="false" row-key="id" bordered size="middle" :loading="loading">
       <a-table-column title="项目名称" data-index="name" key="name" />
       <a-table-column title="描述" data-index="description" key="description" />
       <a-table-column title="开始日期" data-index="start_date" key="start_date">
         <template #default="{ text }">{{ formatDate(text) }}</template>
       </a-table-column>
 
-      <a-table-column
-        title="预计结束日期"
-        data-index="expected_end_date"
-        key="expected_end_date"
-      >
+      <a-table-column title="预计结束日期" data-index="expected_end_date" key="expected_end_date">
         <template #default="{ text }">{{ formatDate(text) }}</template>
       </a-table-column>
       <a-table-column title="状态" data-index="status" key="status">
@@ -84,8 +49,7 @@
       <a-table-column title="来源" data-index="source" key="source" />
       <a-table-column title="操作" key="action">
         <template #default="{ record }">
-          <a-button type="primary" @click="handleUpdateStatus(record)"
-            >项目中检通过
+          <a-button type="primary" @click="handleUpdateStatus(record)">项目中检通过
           </a-button>
           <a-button type="link" @click="handleDownload(record)">
             下载文件
@@ -97,14 +61,8 @@
       </a-table-column>
     </a-table>
     <div style="text-align: right; margin-top: 20px">
-      <a-pagination
-        v-model:current="pageRequest.current"
-        :total="total"
-        :page-size="pageRequest.page_size"
-        @change="handlePageChange"
-        size="small"
-        show-less-items
-      />
+      <a-pagination v-model:current="pageRequest.current" :total="total" :page-size="pageRequest.page_size"
+        @change="handlePageChange" size="small" show-less-items />
     </div>
   </a-card>
 </template>
@@ -115,9 +73,28 @@ import {
   ProjectControllerService,
   ProjectListRequest,
   ProjectResponse,
+  ProjectAddRequest,
+  FileControllerService
 } from "@/api";
 import { message } from "ant-design-vue";
 import { userStore } from "@/store/user";
+import { UploadOutlined } from '@ant-design/icons-vue';
+import { UploadRequestOption } from "ant-design-vue/es/vc-upload/interface";
+
+const form = reactive<ProjectAddRequest>({
+  name: "",
+  description: "",
+  start_date: 0,
+  expected_end_date: 0,
+  user_id: 0,
+  department: "",
+  teacher_id: 0,
+  batch: "",
+  source: "",
+  participant: [],
+  result_type: "",
+  file_path: "",
+});
 
 const pageRequest = reactive<ProjectListRequest>({
   current: 1,
@@ -243,6 +220,35 @@ const handleUpdateStatus = async (record: ProjectResponse) => {
     message.error(res.msg);
   }
 };
+
+const handleCustomUpload = async (options: UploadRequestOption) => {
+  const formData = new FormData();
+  formData.append("file", options.file as File);
+
+  try {
+    // 调用API上传文件
+    const res = await FileControllerService.Upload({
+      file: options.file as Blob,
+    });
+
+    // 检查响应状态码
+    if (res.code !== 0) {
+      message.error(res.msg || '文件上传失败');
+      options.onError?.(new Error(res.msg || '文件上传失败')); // 调用onError方法
+      return;
+    }
+
+    // 更新表单的file_path字段
+    form.file_path = res.data;
+    message.info('文件上传成功');
+
+    // 调用onSuccess方法
+    options.onSuccess?.(res);
+  } catch (error) {
+    console.error('文件上传异常:', error);
+    message.error('文件上传异常，请稍后再试');
+  }
+};
 </script>
 
 <style scoped>
@@ -261,23 +267,23 @@ const handleUpdateStatus = async (record: ProjectResponse) => {
   border-color: #2f4bbf;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   background-color: #f0f2f5;
   color: #333;
   font-weight: 500;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   background-color: #fff;
   color: #555;
 }
 
-.ant-table-tbody > tr:hover {
+.ant-table-tbody>tr:hover {
   background-color: #fafafa;
 }
 
-.ant-table-tbody > tr > td,
-.ant-table-thead > tr > th {
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   border: 1px solid #e8e8e8;
   padding: 12px 16px;
   text-align: center;

@@ -1,53 +1,29 @@
 <template>
-  <a-card title="论文列表" style="max-width: 1200px; margin: 50px auto">
+  <a-card title="论文列表" style="max-width: 1200px; margin: 5px auto">
     <!-- 搜索框区域 -->
     <a-form layout="inline" style="margin-bottom: 20px">
       <a-form-item label="论文名称">
-        <a-input
-          v-model:value="pageRequest.name"
-          placeholder="请输入论文名称"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.name" placeholder="请输入论文名称" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="部门">
-        <a-input
-          v-model:value="pageRequest.department"
-          placeholder="请输入部门"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.department" placeholder="请输入部门" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="论文描述">
-        <a-input
-          v-model:value="pageRequest.description"
-          placeholder="请输入论文描述"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.description" placeholder="请输入论文描述" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="论文批次">
-        <a-input
-          v-model:value="pageRequest.batch"
-          placeholder="请输入论文批次"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.batch" placeholder="请输入论文批次" style="width: 200px" />
       </a-form-item>
 
       <a-form-item style="margin-top: 10px" label="论文来源">
-        <a-input
-          v-model:value="pageRequest.source"
-          placeholder="请输入论文来源"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.source" placeholder="请输入论文来源" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="论文状态" style="margin-top: 10px">
-        <a-select
-          v-model:value="pageRequest.status"
-          placeholder="请选择状态"
-          style="width: 200px"
-        >
+        <a-select v-model:value="pageRequest.status" placeholder="请选择状态" style="width: 200px">
           <a-select-option value="declared">已申报</a-select-option>
           <a-select-option value="initiated">已立项</a-select-option>
           <a-select-option value="progress">进行中</a-select-option>
@@ -58,35 +34,20 @@
       </a-form-item>
 
       <a-form-item style="margin-top: 10px">
-        <a-button
-          type="primary"
-          @click="handleProjects"
-          style="margin-left: 10px"
-        >
+        <a-button type="primary" @click="handleProjects" style="margin-left: 10px">
           搜索
         </a-button>
       </a-form-item>
     </a-form>
 
-    <a-table
-      :data-source="projects"
-      :pagination="false"
-      row-key="id"
-      bordered
-      size="middle"
-      :loading="loading"
-    >
+    <a-table :data-source="projects" :pagination="false" row-key="id" bordered size="middle" :loading="loading">
       <a-table-column title="论文名称" data-index="name" key="name" />
       <a-table-column title="描述" data-index="description" key="description" />
       <a-table-column title="开始日期" data-index="start_date" key="start_date">
         <template #default="{ text }">{{ formatDate(text) }}</template>
       </a-table-column>
 
-      <a-table-column
-        title="预计结束日期"
-        data-index="expected_end_date"
-        key="expected_end_date"
-      >
+      <a-table-column title="预计结束日期" data-index="expected_end_date" key="expected_end_date">
         <template #default="{ text }">{{ formatDate(text) }}</template>
       </a-table-column>
       <a-table-column title="状态" data-index="status" key="status">
@@ -106,14 +67,8 @@
       </a-table-column>
     </a-table>
     <div style="text-align: right; margin-top: 20px">
-      <a-pagination
-        v-model:current="pageRequest.current"
-        :total="total"
-        :page-size="pageRequest.page_size"
-        @change="handlePageChange"
-        size="small"
-        show-less-items
-      />
+      <a-pagination v-model:current="pageRequest.current" :total="total" :page-size="pageRequest.page_size"
+        @change="handlePageChange" size="small" show-less-items />
     </div>
   </a-card>
 </template>
@@ -200,7 +155,12 @@ const getStatusColor = (status: string) => {
 const loading = ref(false);
 
 const handleProjects = async () => {
-  pageRequest.user_id = user.id;
+  if (user.role_id === 1) {
+    pageRequest.user_id = 0;
+  } else {
+    pageRequest.user_id = user.id;
+  }
+
   const res = await ProjectControllerService.List(pageRequest);
   if (res.code === 0) {
     projects.value = res.data.records;
@@ -242,23 +202,23 @@ const handleDownload = (record: ProjectResponse) => {
   border-color: #2f4bbf;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   background-color: #f0f2f5;
   color: #333;
   font-weight: 500;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   background-color: #fff;
   color: #555;
 }
 
-.ant-table-tbody > tr:hover {
+.ant-table-tbody>tr:hover {
   background-color: #fafafa;
 }
 
-.ant-table-tbody > tr > td,
-.ant-table-thead > tr > th {
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   border: 1px solid #e8e8e8;
   padding: 12px 16px;
   text-align: center;

@@ -1,0 +1,2 @@
+[backend]2025/04/05 - 02:44:53.317	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/05 - 11:28:54.657	[34minfo[0m	D:/Amy-desktop/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}

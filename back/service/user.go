@@ -5,6 +5,7 @@ import (
 	"backend/model"
 	"backend/pkg/crypt"
 	"errors"
+
 	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
 )
@@ -68,6 +69,7 @@ func (s *UserService) GetUser(id int64) (*model.UserResponse, error) {
 }
 
 func (s *UserService) Update(req *model.UserUpdateRequest) error {
+	req.Password = crypt.BcryptHash(req.Password)
 	if err := global.Db.Model(&model.User{}).Where("id = ?", req.Id).Updates(req).Error; err != nil {
 		return errors.New("系统错误")
 	}

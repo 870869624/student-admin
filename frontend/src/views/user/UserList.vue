@@ -1,37 +1,21 @@
 <template>
-  <a-card title="用户列表" style="max-width: 1200px; margin: 50px auto">
+  <a-card title="用户列表" style="max-width: 1200px; margin: 5px auto">
     <!-- 搜索框区域 -->
     <a-form layout="inline" style="margin-bottom: 20px">
       <a-form-item label="用户名">
-        <a-input
-          v-model:value="pageRequest.username"
-          placeholder="请输入用户名"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.username" placeholder="请输入用户名" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="部门">
-        <a-input
-          v-model:value="pageRequest.department"
-          placeholder="请输入部门"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.department" placeholder="请输入部门" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="组织">
-        <a-input
-          v-model:value="pageRequest.organization"
-          placeholder="请输入组织"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.organization" placeholder="请输入组织" style="width: 200px" />
       </a-form-item>
 
       <a-form-item label="工作">
-        <a-input
-          v-model:value="pageRequest.job"
-          placeholder="请输入工作"
-          style="width: 200px"
-        />
+        <a-input v-model:value="pageRequest.job" placeholder="请输入工作" style="width: 200px" />
       </a-form-item>
 
       <a-form-item style="margin-top: 10px">
@@ -41,14 +25,7 @@
       </a-form-item>
     </a-form>
 
-    <a-table
-      :data-source="users"
-      :pagination="false"
-      row-key="id"
-      bordered
-      size="middle"
-      :loading="loading"
-    >
+    <a-table :data-source="users" :pagination="false" row-key="id" bordered size="middle" :loading="loading">
       <a-table-column title="用户名" data-index="username" key="username" />
       <a-table-column title="账号" data-index="account" key="account" />
       <a-table-column title="职位" data-index="position" key="position" />
@@ -56,19 +33,11 @@
       <a-table-column title="邮箱" data-index="email" key="email" />
       <a-table-column title="部门" data-index="department" key="department" />
       <a-table-column title="工作" data-index="job" key="job" />
-      <a-table-column
-        title="组织"
-        data-index="organization"
-        key="organization"
-      />
+      <a-table-column title="组织" data-index="organization" key="organization" />
       <a-table-column title="操作" key="action">
         <template #default="{ record }">
           <a-button type="link" @click="handleEdit(record)"> 编辑</a-button>
-          <a-button
-            v-if="record.role_id !== 1"
-            type="link"
-            @click="handleDelete(record)"
-          >
+          <a-button v-if="record.role_id !== 1" type="link" @click="handleDelete(record)">
             删除
           </a-button>
         </template>
@@ -76,29 +45,15 @@
     </a-table>
 
     <div style="text-align: right; margin-top: 20px">
-      <a-pagination
-        v-model:current="pageRequest.current"
-        :total="total"
-        :page-size="pageRequest.page_size"
-        @change="handlePageChange"
-        size="small"
-        show-less-items
-      />
+      <a-pagination v-model:current="pageRequest.current" :total="total" :page-size="pageRequest.page_size"
+        @change="handlePageChange" size="small" show-less-items />
     </div>
 
     <!-- Modal for Editing User -->
-    <a-modal
-      v-model:visible="isModalVisible"
-      title="编辑用户"
-      @ok="handleUpdate"
-      @cancel="handleCancel"
-    >
+    <a-modal v-model:visible="isModalVisible" title="编辑用户" @ok="handleUpdate" @cancel="handleCancel">
       <a-form :model="editForm" layout="vertical">
         <a-form-item label="用户名">
-          <a-input
-            v-model:value="editForm.username"
-            placeholder="请输入用户名"
-          />
+          <a-input v-model:value="editForm.username" placeholder="请输入用户名" />
         </a-form-item>
         <a-form-item label="账号">
           <a-input v-model:value="editForm.account" placeholder="请输入账号" />
@@ -113,19 +68,13 @@
           <a-input v-model:value="editForm.email" placeholder="请输入邮箱" />
         </a-form-item>
         <a-form-item label="部门">
-          <a-input
-            v-model:value="editForm.department"
-            placeholder="请输入部门"
-          />
+          <a-input v-model:value="editForm.department" placeholder="请输入部门" />
         </a-form-item>
         <a-form-item label="工作">
           <a-input v-model:value="editForm.job" placeholder="请输入工作" />
         </a-form-item>
         <a-form-item label="组织">
-          <a-input
-            v-model:value="editForm.organization"
-            placeholder="请输入组织"
-          />
+          <a-input v-model:value="editForm.organization" placeholder="请输入组织" />
         </a-form-item>
       </a-form>
     </a-modal>
@@ -251,23 +200,23 @@ onMounted(() => {
   border-color: #2f4bbf;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   background-color: #f0f2f5;
   color: #333;
   font-weight: 500;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   background-color: #fff;
   color: #555;
 }
 
-.ant-table-tbody > tr:hover {
+.ant-table-tbody>tr:hover {
   background-color: #fafafa;
 }
 
-.ant-table-tbody > tr > td,
-.ant-table-thead > tr > th {
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   border: 1px solid #e8e8e8;
   padding: 12px 16px;
   text-align: center;
