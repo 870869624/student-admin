@@ -1,0 +1,10 @@
+[backend]2025/04/09 - 15:12:39.004	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 16:18:50.546	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 16:19:37.112	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 16:35:06.699	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 16:36:14.254	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 22:03:15.073	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 22:35:33.819	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 23:01:02.799	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 23:05:30.932	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}
+[backend]2025/04/09 - 23:06:31.536	[34minfo[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:19	redis connect ping xres:	{"pong": "PONG"}

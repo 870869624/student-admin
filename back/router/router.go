@@ -34,6 +34,7 @@ func Router() *gin.Engine {
 		InitProjectDownRouter(group)
 		InitAnnounceRouter(group)
 		InitNoteRouter(group)
+		InitPreProjectRouter(group)
 	}
 
 	return router

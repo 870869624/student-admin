@@ -1,0 +1,1 @@
+[backend]2025/04/10 - 15:35:01.072	[31merror[0m	/Users/mac/Downloads/基于Gin的科研管理系统代码 2/基于Gin的科研管理系统代码 2/back/initialize/redis.go:16	redis connect ping failed, err:	{"error": "dial tcp 127.0.0.1:6379: connect: connection refused"}
