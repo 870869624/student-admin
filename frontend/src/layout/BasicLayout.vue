@@ -28,6 +28,12 @@
               <span>查看进度</span>
             </router-link>
           </a-menu-item>
+          <a-menu-item key="1-3">
+            <router-link to="/project/add">
+              <SwitcherOutlined />
+              <span>预设项目申报</span>
+            </router-link>
+          </a-menu-item>
         </a-sub-menu>
         <a-sub-menu v-if="hashPermission(user.permission_ids, adminPermissionIds)" key="2">
           <template #title>

@@ -23,6 +23,7 @@ import ProjectDown from "@/views/project/ProjectDown.vue";
 import TestWeb3 from "@/views/user/test-web3.vue";
 import AnnouncementList from "@/views/announcement/AnnouncementList.vue";
 import EditPassword from "@/views/user/EditPassword.vue";
+import PreProjectList from "@/views/project/PreProjectList.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -62,12 +63,30 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        name: "预设项目申报",
+        path: "/project/add",
+        component: PreProjectList,
+        meta: {
+          requiresAuth: true,
+          permissions: [2],
+        },
+      },
+      {
         name: "查看项目进度",
         path: "/project/user",
         component: ProjectUser,
         meta: {
           requiresAuth: true,
           permissions: [1, 2, 3],
+        },
+      },
+      {
+        name: "预设项目申报",
+        path: "/project/pre-projecroject",
+        component: PreProjectList,
+        meta: {
+          requiresAuth: true,
+          permissions: [2],
         },
       },
       {
