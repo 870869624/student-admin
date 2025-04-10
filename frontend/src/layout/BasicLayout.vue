@@ -28,16 +28,22 @@
               <span>查看进度</span>
             </router-link>
           </a-menu-item>
-          <a-menu-item key="1-3">
+          <a-menu-item v-if="hashPermission(user.permission_ids, admin1PermissionIds)" key="1-3">
             <router-link to="/project/pre-list">
               <SwitcherOutlined />
               <span>预设项目申报</span>
             </router-link>
           </a-menu-item>
-          <a-menu-item key="1-4">
-            <router-link to="/project/add">
+          <a-menu-item  v-if="hashPermission(user.permission_ids, admin2PermissionIds)" key="1-4">
+            <router-link to="/project/olist">
               <SwitcherOutlined />
               <span>预设项目</span>
+            </router-link>
+          </a-menu-item>
+          <a-menu-item  v-if="hashPermission(user.permission_ids, adminPermissionIds)" key="1-4">
+            <router-link to="/project/update">
+              <SwitcherOutlined />
+              <span>预设项目审核</span>
             </router-link>
           </a-menu-item>
         </a-sub-menu>
@@ -469,6 +475,8 @@ const editForm = reactive<UserUpdateRequest>({
 const user = userStore();
 
 const adminPermissionIds = ref([1]);
+const admin1PermissionIds = ref([3]);
+const admin2PermissionIds = ref([2,3]);
 const teacherPermissionIds = ref([1, 3]);
 
 const hashPermission = (
