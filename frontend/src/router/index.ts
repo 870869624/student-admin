@@ -20,6 +20,7 @@ import RoleList from "@/views/user/RoleList.vue";
 import PermissionList from "@/views/user/PermissionList.vue";
 import HomeView from "@/views/HomeView.vue";
 import ProjectDown from "@/views/project/ProjectDown.vue";
+import PreProjectList from "@/views/project/PreProjectList.vue";
 import TestWeb3 from "@/views/user/test-web3.vue";
 import AnnouncementList from "@/views/announcement/AnnouncementList.vue";
 import EditPassword from "@/views/user/EditPassword.vue";
@@ -70,6 +71,15 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           permissions: [1, 2, 3],
+        },
+      },
+      {
+        name: "预设项目列表",
+        path: "/project/pre-list",
+        component: PreProjectList,
+        meta: {
+          requiresAuth: true,
+          permissions: [3],
         },
       },
       {

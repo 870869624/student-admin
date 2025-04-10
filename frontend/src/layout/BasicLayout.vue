@@ -29,7 +29,7 @@
             </router-link>
           </a-menu-item>
           <a-menu-item key="1-3">
-            <router-link to="/project/add">
+            <router-link to="/project/pre-list">
               <SwitcherOutlined />
               <span>预设项目申报</span>
             </router-link>

@@ -89,6 +89,16 @@ func (s *PreProjectService) List(req *model.AllPreProjectListRequest) (int64, in
 
 	}
 
+	for i, project := range projects {
+		switch project.Status {
+		case "0":
+			projectRes[i].Status = "待审核"
+		case "1":
+			projectRes[i].Status = "审核通过"
+		case "2":
+			projectRes[i].Status = "审核不通过"
+		}
+	}
 	return total, len(projectRes), pages, projectRes, nil
 }
 
@@ -129,6 +139,16 @@ func (s *PreProjectService) MyList(req *model.MyPreProjectListRequest) (int64, i
 
 	}
 
+	for i, project := range projects {
+		switch project.Status {
+		case "0":
+			projectRes[i].Status = "待审核"
+		case "1":
+			projectRes[i].Status = "审核通过"
+		case "2":
+			projectRes[i].Status = "审核不通过"
+		}
+	}
 	return total, len(projectRes), pages, projectRes, nil
 }
 
@@ -161,6 +181,16 @@ func (s *PreProjectService) OList(req *model.OPreProjectListRequest) (int64, int
 
 	}
 
+	for i, project := range projects {
+		switch project.Status {
+		case "0":
+			projectRes[i].Status = "待审核"
+		case "1":
+			projectRes[i].Status = "审核通过"
+		case "2":
+			projectRes[i].Status = "审核不通过"
+		}
+	}
 	return total, len(projectRes), pages, projectRes, nil
 }
 
