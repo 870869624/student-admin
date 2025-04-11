@@ -90,8 +90,20 @@ export default defineComponent({
       console.log('下载材料:', item);
     },
     handleApply(item) {
-      // 实现项目申报功能
-      console.log('项目申报:', item);
+      // 将时间戳转换为YYYY-MM-DD格式的日期字符串
+      const startDate = dayjs(item.start_date * 1000).format('YYYY-MM-DD');
+      const expectedEndDate = dayjs(item.expected_end_date * 1000).format('YYYY-MM-DD');
+      
+      // 通过路由导航到申报项目页面，并传递项目信息
+      this.$router.push({
+        name: '申报项目',
+        query: {
+          name: item.name,
+          description: item.description,
+          start_date: startDate,
+          expected_end_date: expectedEndDate
+        }
+      });
     }
   }
 });

@@ -104,6 +104,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
+import { useRoute } from "vue-router";
 import { message } from "ant-design-vue";
 import {
   FileControllerService,
@@ -115,6 +116,7 @@ import { UserControllerService } from "@/api/services/UserControllerService";
 import { userStore } from "@/store/user";
 import { UploadRequestOption } from "ant-design-vue/es/vc-upload/interface";
 import { UploadOutlined } from '@ant-design/icons-vue';
+import dayjs from 'dayjs';
 
 const form = reactive<ProjectAddRequest>({
   name: "",
@@ -197,6 +199,21 @@ const handleUserIds = async () => {
 onMounted(() => {
   handleTeacherIds();
   handleUserIds();
+
+  // 获取路由参数并填充表单
+  const route = useRoute();
+  if (route.query.name) {
+    form.name = route.query.name as string;
+  }
+  if (route.query.description) {
+    form.description = route.query.description as string;
+  }
+  if (route.query.start_date) {
+    formDate.start_date = dayjs(route.query.start_date as string).format('YYYY-MM-DD');
+  }
+  if (route.query.expected_end_date) {
+    formDate.expected_end_date = dayjs(route.query.expected_end_date as string).format('YYYY-MM-DD');
+  }
 });
 
 const handleCustomUpload = async (options: UploadRequestOption) => {
