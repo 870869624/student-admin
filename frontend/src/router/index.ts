@@ -21,6 +21,7 @@ import PermissionList from "@/views/user/PermissionList.vue";
 import HomeView from "@/views/HomeView.vue";
 import ProjectDown from "@/views/project/ProjectDown.vue";
 import PreProjectList from "@/views/project/PreProjectList.vue";
+import PreProjectUpdate from "@/views/project/PreProjectUpdate.vue";
 import OPreProjectList from "@/views/project/OPreProjectList.vue";
 import TestWeb3 from "@/views/user/test-web3.vue";
 import AnnouncementList from "@/views/announcement/AnnouncementList.vue";
@@ -90,6 +91,15 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           requiresAuth: true,
           permissions: [1,2,3],
+        },
+      },
+      {
+        name: "预设项目审核",
+        path: "/project/update",
+        component: PreProjectUpdate,
+        meta: {
+          requiresAuth: true,
+          permissions: [1],
         },
       },
       {

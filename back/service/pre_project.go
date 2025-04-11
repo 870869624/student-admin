@@ -56,7 +56,7 @@ func (s *PreProjectService) Delete(req *model.DeleteRequest) error {
 func (s *PreProjectService) List(req *model.AllPreProjectListRequest) (int64, int, int, []*model.PreProjectResponse, error) {
 	query := global.Db.Model(&model.PreProject{})
 
-	query = query.Where("status = 1")
+	query = query.Where("status = 0")
 
 	if req.Name != "" {
 		query = query.Where("name like ?", "%"+req.Name+"%")

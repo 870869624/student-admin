@@ -62,35 +62,32 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { message } from 'ant-design-vue';
 import axios from 'axios';
-import { userStore } from "@/store/user";
+import { userStore } from '@/store/user';
 import type { FormInstance } from 'ant-design-vue';
 
 // 定义 formatDate 函数并添加类型定义
-    const visible = ref(false);
-    const formRef = ref<FormInstance>();
-    const formState = ref({
-      name: '',
-      description: '',
-      start_date: '',
-      expected_end_date: ''
-    });
+const visible = ref(false);
+const formRef = ref<FormInstance>();
+const formState = ref({
+  name: '',
+  description: '',
+  start_date: '',
+  expected_end_date: ''
+});
 
-    const showModal = () => {
-      visible.value = true;
-    };
+const showModal = () => {
+  visible.value = true;
+};
 
-    const handleCancel = () => {
-      visible.value = false;
-      formState.value = {
-        name: '',
-        description: '',
-        start_date: '',
-        expected_end_date: ''
-      };
-    };
-
-    const user = userStore();
-    
+const handleCancel = () => {
+  visible.value = false;
+  formState.value = {
+    name: '',
+    description: '',
+    start_date: '',
+    expected_end_date: ''
+  };
+};
 
 const formatDate = (timestamp: number | null | undefined): string => {
   if (!timestamp) return ''; // 处理可能的 null 或 undefined 值
