@@ -100,8 +100,8 @@ export default defineComponent({
         query: {
           name: item.name,
           description: item.description,
-          start_date: startDate,
-          expected_end_date: expectedEndDate
+          start_date: "",
+          expected_end_date: ""
         }
       });
     }

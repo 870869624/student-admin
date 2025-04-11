@@ -209,10 +209,10 @@ onMounted(() => {
     form.description = route.query.description as string;
   }
   if (route.query.start_date) {
-    formDate.start_date = dayjs(route.query.start_date as string).format('YYYY-MM-DD');
+    formDate.start_date = route.query.start_date as string;
   }
   if (route.query.expected_end_date) {
-    formDate.expected_end_date = dayjs(route.query.expected_end_date as string).format('YYYY-MM-DD');
+    formDate.expected_end_date = route.query.expected_end_date as string;
   }
 });
 
