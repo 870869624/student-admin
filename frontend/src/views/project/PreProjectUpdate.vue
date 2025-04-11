@@ -12,6 +12,12 @@
             {{ text }}
           </a-tag>
         </template>
+        <template #operation="{ record }">
+          <a-space>
+            <a-button type="primary" size="small" @click="handleAudit(record.id, '1')">审核通过</a-button>
+            <a-button type="danger" size="small" @click="handleAudit(record.id, '2')">审核不通过</a-button>
+          </a-space>
+        </template>
       </a-table>
     </a-card>
   </div>
@@ -54,6 +60,11 @@ export default defineComponent({
         dataIndex: 'status',
         key: 'status',
         slots: { customRender: 'status' }
+      },{
+        title: '操作',
+        dataIndex: 'operation',
+        key: 'operation',
+        slots: { customRender: 'operation' }
       }
     ]
 
@@ -89,6 +100,25 @@ export default defineComponent({
       fetchData()
     }
 
+    const handleAudit = async (projectId: number, status: string) => {
+      try {
+        const response = await axios.post('http://localhost:8100/api/preProject/update/status', {
+          project_id: projectId,
+          status: status
+        });
+
+        if (response.data.code === 0) {
+          message.success('审核操作成功');
+          fetchData();
+        } else {
+          message.error('审核操作失败');
+        }
+      } catch (error) {
+        console.error('审核操作出错:', error);
+        message.error('审核操作失败');
+      }
+    };
+
     onMounted(() => {
       fetchData()
     })
@@ -97,7 +127,8 @@ export default defineComponent({
       columns,
       dataSource,
       pagination,
-      handleTableChange
+      handleTableChange,
+      handleAudit
     }
   }
 })

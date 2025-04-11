@@ -21,6 +21,7 @@
         <template #default="{ text }">{{ formatDate(text) }}</template>
       </a-table-column>
       <a-table-column title="项目审核状态" data-index="status" key="status" />
+      <!-- <a-table-column title="操作" data-index="operation" key="operation" /> -->
     </a-table>
   </a-card>
 
@@ -144,6 +145,7 @@ export default defineComponent({
       fetchProjects();
     };
 
+
     const handleOk = async () => {
       try {
         const startDate = Math.floor(new Date(formState.value.start_date).getTime() / 1000);
@@ -187,7 +189,8 @@ export default defineComponent({
       formRef,
       showModal,
       handleOk,
-      handleCancel
+      handleCancel,
+      
     };
   }
 
